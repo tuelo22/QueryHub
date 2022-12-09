@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryHub", "QueryHub.csproj", "{B3D7252C-829B-441D-80B2-8044B8C2967A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QueryHub.Domain", "..\QueryHub.Domain\QueryHub.Domain.csproj", "{CBC3AE5E-7D27-482F-93AB-46954B3D74EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3D7252C-829B-441D-80B2-8044B8C2967A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D7252C-829B-441D-80B2-8044B8C2967A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D7252C-829B-441D-80B2-8044B8C2967A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D7252C-829B-441D-80B2-8044B8C2967A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBC3AE5E-7D27-482F-93AB-46954B3D74EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC3AE5E-7D27-482F-93AB-46954B3D74EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC3AE5E-7D27-482F-93AB-46954B3D74EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC3AE5E-7D27-482F-93AB-46954B3D74EA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03C8498A-0244-406A-8C24-721C81B25511}
+	EndGlobalSection
+EndGlobal
