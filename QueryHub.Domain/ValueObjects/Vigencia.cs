@@ -1,9 +1,9 @@
-﻿using QueryHub.Domain.ValueObjects.Base;
+﻿using QueryHub.Domain.Interfaces;
 using System;
 
 namespace QueryHub.Domain.ValueObjects
 {
-    public class Vigencia : ValueObjectsBase
+    public class Vigencia : IValidation
     {
         public DateTime? Inicio { get; set; }
         public DateTime? Fim { get; set; }
@@ -16,7 +16,7 @@ namespace QueryHub.Domain.ValueObjects
             Validation();
         }
 
-        protected override void Validation()
+        public void Validation()
         {
             if (Inicio == null || Inicio == DateTime.MinValue)
             {

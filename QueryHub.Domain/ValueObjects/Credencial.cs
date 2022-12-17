@@ -1,9 +1,9 @@
-﻿using QueryHub.Domain.ValueObjects.Base;
+﻿using QueryHub.Domain.Interfaces;
 using System;
 
 namespace QueryHub.Domain.ValueObjects
 {
-    public class Credencial : ValueObjectsBase
+    public class Credencial : IValidation
     {
         public String Login { get; private set; }
         public String Senha { get; private set; }
@@ -14,7 +14,7 @@ namespace QueryHub.Domain.ValueObjects
             Senha = senha;
         }
 
-        protected override void Validation()
+        public void Validation()
         {
             if (String.IsNullOrEmpty(Login))
             {

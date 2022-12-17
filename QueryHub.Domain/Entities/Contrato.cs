@@ -1,31 +1,31 @@
-﻿using QueryHub.Domain.Entities.Base;
+﻿using QueryHub.Domain.Interfaces;
 using QueryHub.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace QueryHub.Domain.Entities
 {
-    public class Contrato : EntityBase
+    public class Contrato : IValidation
     {
-        public Consulta Consulta { get; private set; }
+        public Guid Identificador { get; private set; }
         public Double Valor { get; private set; }
         public Vigencia Vigencia { get; private set; }
+        public IList<Consulta> Consultas { get; set; }
+        public Fornecedor Fornecedor { get; set; }
 
-        public Contrato(Consulta consulta, double valor, Vigencia vigencia)
+        public Contrato(double valor, Vigencia vigencia, Fornecedor fornecedor)
         {
-            Consulta = consulta;
+            Consultas = new List<Consulta>();
+            Identificador = Guid.NewGuid();            
             Valor = valor;
             Vigencia = vigencia;
+            Fornecedor = fornecedor;
 
             Validation();
         }
 
-        protected override void Validation()
+        public void Validation()
         {
-            if (Consulta == null)
-            {
-                throw new ArgumentNullException("Consulta");
-            }
-
             if (Valor <=0)
             {
                 throw new ArgumentNullException("Valor");
@@ -34,6 +34,11 @@ namespace QueryHub.Domain.Entities
             if (Vigencia == null)
             {
                 throw new ArgumentNullException("Vigencia");
+            }
+
+            if (Fornecedor == null)
+            {
+                throw new ArgumentNullException("Fornecedor");
             }
         }
     }

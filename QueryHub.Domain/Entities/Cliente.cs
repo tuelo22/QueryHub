@@ -1,26 +1,30 @@
-﻿using QueryHub.Domain.Entities.Base;
+﻿using QueryHub.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace QueryHub.Domain.Entities
 {
-    public class Cliente : EntityBase
+    public class Cliente : IValidation
     {
+        public Guid Identificador { get; private set; }
         public String Nome { get; private set; }
         public String CNPJ { get; private set; }
-        public List<ContatoDoCliente> Contatos { get; private set; }
+        public IList<ContatoDoCliente> Contatos { get; private set; }
+        public IList<Usuario> Usuarios { get; private set; }
 
-        public Cliente(String Nome, String CNPJ)
+        public Cliente(String nome, String cNPJ)
         {
+            Identificador = Guid.NewGuid();
             Contatos = new List<ContatoDoCliente>();
+            Usuarios = new List<Usuario>();
 
-            this.Nome = Nome;
-            this.CNPJ = CNPJ;
+            this.Nome = nome;
+            this.CNPJ = cNPJ;
 
             Validation();
         }
 
-        protected override void Validation()
+        public void Validation()
         {
             if (String.IsNullOrEmpty(Nome))
             {

@@ -1,26 +1,30 @@
-﻿using QueryHub.Domain.Entities.Base;
+﻿using QueryHub.Domain.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace QueryHub.Domain.Entities
 {
-    public class Operacao : EntityBase
+    public class Operacao : IValidation
     {
+        public Guid Identificador { get; private set; } 
         public Usuario Usuario { get; private set; }
         public String Descricao { get; private set; }
         public DateTime? Date { get; private set; }
-        public PlanoDeTarifacao PlanoDeTarifacao { get; private set; }
+        public IList<ConsultaDaOperacao> Consultas { get; set; }
 
-        public Operacao(Usuario usuario, string descricao, DateTime? date, PlanoDeTarifacao planoDeTarifacao)
+        public Operacao(Usuario usuario, string descricao, DateTime? date, IList<ConsultaDaOperacao> consultas)
         {
+            Consultas = consultas;
+            Identificador = Guid.NewGuid();
             Usuario = usuario;
             Descricao = descricao;
             Date = date;
-            PlanoDeTarifacao = planoDeTarifacao;
 
             Validation();
         }
 
-        protected override void Validation()
+        public void Validation()
         {
             if (Usuario == null)
             {
@@ -37,9 +41,14 @@ namespace QueryHub.Domain.Entities
                 throw new ArgumentNullException("Date");
             }
 
-            if (PlanoDeTarifacao == null)
+            if (Consultas == null)
             {
-                throw new ArgumentNullException("PlanoDeTarifacao");
+                throw new ArgumentNullException("Consultas");
+            }
+
+            if (Consultas.Count() == 0)
+            {
+                throw new Exception("Consultas da operação não informado.");
             }
         }
     }

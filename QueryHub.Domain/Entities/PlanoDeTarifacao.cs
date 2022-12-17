@@ -1,40 +1,29 @@
-﻿using QueryHub.Domain.Entities.Base;
+﻿using QueryHub.Domain.Interfaces;
 using QueryHub.Domain.ValueObjects;
 using System;
+using System.Collections.Generic;
 
 namespace QueryHub.Domain.Entities
 {
-    public class PlanoDeTarifacao : EntityBase
+    public class PlanoDeTarifacao : IValidation
     {
-        public Cliente Cliente { get; set; }
-        public Consulta Consulta { get; set; }
-        public Double Valor { get; set; }
-        public Vigencia Vigencia { get; set; }
-        public Contrato Contrato { get; set; }
+        public Guid Identificador { get; private set; } 
+        public Double Valor { get; private set; }
+        public Vigencia Vigencia { get; private set; }
+        public IList<Consulta> Consultas { get; private set; }
 
-        public PlanoDeTarifacao(Cliente cliente, Consulta consulta, double valor, Vigencia vigencia, Contrato contrato)
+        public PlanoDeTarifacao(double valor, Vigencia vigencia)
         {
-            Cliente = cliente;
-            Consulta = consulta;
+            Identificador = Guid.NewGuid();
+            Consultas = new List<Consulta>();
             Valor = valor;
             Vigencia = vigencia;
-            Contrato = contrato;
 
             Validation();
         }
 
-        protected override void Validation()
+        public void Validation()
         {
-            if (Cliente == null)
-            {
-                throw new ArgumentNullException("Cliente");
-            }
-
-            if (Consulta == null)
-            {
-                throw new ArgumentNullException("Consulta");
-            }
-
             if (Valor <= 0)
             {
                 throw new ArgumentNullException("Valor");
@@ -43,11 +32,6 @@ namespace QueryHub.Domain.Entities
             if (Vigencia == null)
             {
                 throw new ArgumentNullException("Vigencia");
-            }
-
-            if (Contrato == null)
-            {
-                throw new ArgumentNullException("Contrato");
             }
         }
     }

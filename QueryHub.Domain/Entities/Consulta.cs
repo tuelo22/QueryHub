@@ -1,37 +1,48 @@
-﻿using QueryHub.Domain.Entities.Base;
+﻿using QueryHub.Domain.Interfaces;
 using QueryHub.Domain.ValueObjects;
 using System;
 
 namespace QueryHub.Domain.Entities
 {
-    public class Consulta : EntityBase
+    public class Consulta : IValidation 
     {
-        public String Fornecedor { get; private set; }
-        public String Serviço { get; private set; }
+        public Guid Identificador { get; private set; } 
+        public Fornecedor Fornecedor { get; private set; }
         public Credencial Credencial { get; private set; }
+        public Contrato Contrato { get; set; }
+        public PlanoDeTarifacao PlanoDeTarifacao { get; set; }
 
-        public Consulta(string fornecedor, string serviço, Credencial credencial)
+        public Consulta(Fornecedor fornecedor, Credencial credencial, Contrato contrato, PlanoDeTarifacao planoDeTarifacao)
         {
+            Identificador = Guid.NewGuid();
             Fornecedor = fornecedor;
-            Serviço = serviço;
             Credencial = credencial;
+            Contrato = contrato;
+            PlanoDeTarifacao = planoDeTarifacao;
+
+            Validation();
         }
 
-        protected override void Validation()
+        public void Validation()
         {
-            if (String.IsNullOrEmpty(Fornecedor))
+            if (Fornecedor == null)
             {
                 throw new ArgumentNullException("Fornecedor");
-            }
-
-            if (String.IsNullOrEmpty(Serviço))
-            {
-                throw new ArgumentNullException("Serviço");
             }
 
             if (Credencial == null)
             {
                 throw new ArgumentNullException("Credencial");
+            }
+
+            if (Contrato == null)
+            {
+                throw new ArgumentNullException("Contrato");
+            }
+
+            if (PlanoDeTarifacao == null)
+            {
+                throw new ArgumentNullException("PlanoDeTarifacao");
             }
         }
     }
